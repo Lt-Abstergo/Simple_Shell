@@ -23,14 +23,7 @@ const char *HELP = "help";
 const char *CD = "cd";
 
 const char *HELP_STATEMENT = "\n"
-                             "Key words: \n"
-                             "                  cd change directory\n"
-                             "                  > file out, < file in\n"
-                             "                  !! redo\n"
-                             "                  | pipe\n"
-                             "                  exit to exit\n"
-                             "                  daemon to check bg processes\n"
-                             "                  kill-daemon to kill all the running bg processes";
+                             "You cant execute TOp. I have not implemented the cd script for this shell";
 
 int betterGets(char *s, int arraySize);
 
@@ -70,18 +63,16 @@ int main(void) {
         argv = (char **) malloc(argCount + 1);
         argFilter(args, argv, argCount);
         addLast(argv, argCount);
-
         if (strcmp(argv[0], EXIT) == 0) {
             should_run = 0;
             if (daeCounter > 0) {
                 daemonSuspend(NULL, daemonArray, 1);
                 emptyList();
             }
-        } else {
-            loopMain(argv, argCount, daemonArray);
         }
-        return 0;
+        loopMain(argv, argCount, daemonArray);
     }
+    return 0;
 }
 
 void daemonCheck(int *daemonArray) {
@@ -285,5 +276,4 @@ void loopMain(char **argv, int argCount, int *daemonArray) {
     } else {
         executeProcesses(argv, argCount, daemonArray);
     }
-
 }
